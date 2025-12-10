@@ -1,8 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "vite",
   "functions": {
@@ -12,6 +11,10 @@
     }
   },
   "routes": [
+    {
+      "src": "/api/health",
+      "dest": "api/index.ts"
+    },
     {
       "src": "/api/(.*)",
       "dest": "api/index.ts"
@@ -32,5 +35,24 @@
     "env": {
       "NODE_ENV": "production"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ]
 }
