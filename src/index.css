@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para el dashboard */
+body {
+  background-color: #0f0f0f;
+  color: #e5e7eb;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Animaciones de carga */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Transiciones suaves */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Estilos para gráficos */
+.recharts-cartesian-axis-tick-value {
+  fill: #9ca3af !important;
+  font-size: 12px !important;
+}
+
+.recharts-legend-item-text {
+  color: #e5e7eb !important;
+  font-size: 12px !important;
+}
+
+.recharts-cartesian-grid-line {
+  stroke: #374151 !important;
+}
+
+/* Tabla personalizada */
+.table-custom {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-custom th,
+.table-custom td {
+  border: 1px solid #374151;
+  padding: 8px 12px;
+}
+
+.table-custom th {
+  background-color: #1f2937;
+  font-weight: 600;
+}
+
+.table-custom tr:hover {
+  background-color: #374151;
+}
+
+/* Botones personalizados */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900;
+}
+
+/* Cards personalizadas */
+.card {
+  @apply bg-gray-800 rounded-lg border border-gray-700 shadow-lg;
+}
+
+.card-header {
+  @apply px-6 py-4 border-b border-gray-700;
+}
+
+.card-body {
+  @apply px-6 py-4;
+}
+
+.card-footer {
+  @apply px-6 py-4 border-t border-gray-700 bg-gray-700;
+}
