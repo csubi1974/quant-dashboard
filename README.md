@@ -1,127 +1,154 @@
-# Tradier Dashboard - Análisis Intradía del Mercado
+# Tradier Options Dashboard
 
-Dashboard profesional para análisis intradía del mercado utilizando la API de Tradier. Visualiza en tiempo real métricas de GEX (Gamma Exposure), Open Interest, Volumen y otras señales derivadas de la cadena de opciones.
+Un dashboard profesional para análisis de opciones y generación de ideas de trading usando la API de Tradier.
 
 ## 🚀 Características
 
-- **Métricas Principales:** Spot, Dist. PG S/N, Movimiento Esperado, Tendencia, Score
-- **Gráficos Interactivos:**
-  - Gráfico principal con múltiples líneas (Precio, GEX, OI, Delta Neutro, Volumen)
-  - Strikes GEX Put/Call con barras interactivas
-  - Evolución del Score con banda de colores
-  - Strikes Dominantes GEX
-- **Panel de Tendencias:** Indicadores con barras de gradiente y estado del mercado
-- **Tabla Histórica:** Datos intradía con timestamp y predicciones
-- **Actualización Automática:** Refresco cada 30 segundos
-- **Tema Oscuro Profesional:** Interfaz moderna y responsive
+### Dashboard Principal
+- **Análisis GEX (Gamma Exposure)** en tiempo real
+- **Market Metrics** con cálculo de tendencias
+- **Gráficos interactivos** de strikes dominantes
+- **Tabla histórica** intradía
+- **Soporte múltiple** para símbolos: SPX, XSP, SPY, QQQ, IWM
 
-## 🛠️ Stack Tecnológico
+### Generador de Ideas de Trading
+- **Estrategias automáticas** basadas en tendencia del mercado
+- **Put Credit Spreads** para mercados alcistas
+- **Call Debit Spreads** para mercados bajistas
+- **Filtrado por delta** (~30 delta) para optimización
+- **Actualización cada 5 minutos** durante horario de mercado
+- **Espera inteligente** de 30 minutos después de apertura para claridad de tendencia
 
-### Frontend
-- React 18 + TypeScript
-- Tailwind CSS para estilos
-- Recharts para visualizaciones
-- Zustand para gestión de estado
-- Lucide React para iconos
+### Tarjetas de Métricas en Tiempo Real
+- **Profitables**: Número de trades ganadores
+- **Total Trades**: Total de operaciones generadas
+- **Win Rate**: Porcentaje de trades exitosos
+- **OTM/ITM/NTM**: Distribución de estados de las opciones
 
-### Backend
-- Node.js + Express + TypeScript
-- Axios para integración con Tradier API
-- CORS y Helmet para seguridad
-- Variables de entorno para configuración
+## 🛠️ Tecnologías
+
+- **Frontend**: React 18 + TypeScript + Tailwind CSS
+- **Backend**: Node.js + Express + TypeScript
+- **Estado**: Zustand para gestión de estado global
+- **API**: Tradier API para datos de mercado
+- **Despliegue**: Vercel (frontend + backend serverless)
 
 ## 📦 Instalación
 
+### Prerequisitos
+- Node.js 18+
+- Cuenta en Tradier con API key
+
+### Setup Local
+
 1. **Clonar el repositorio**
 ```bash
-git clone [url-del-repositorio]
-cd tradier-dashboard
+git clone https://github.com/csubi1974/quant-dashboard.git
+cd quant-dashboard
 ```
 
 2. **Instalar dependencias**
 ```bash
-# Instalar dependencias del frontend
+# Frontend dependencies
 npm install
 
-# Instalar dependencias del backend
-cd api && npm install && cd ..
+# Backend dependencies
+cd api
+npm install
+cd ..
 ```
 
 3. **Configurar variables de entorno**
-Crea un archivo `.env` en la carpeta `api` con tu API key de Tradier:
+Crea un archivo `.env` en la raíz del proyecto:
 ```env
-TRADIER_API_KEY=coGsj0jBfyTpftB7EOcZhydoaJtM
-PORT=3001
+TRADIER_API_KEY=tu_api_key_aqui
 ```
 
-4. **Iniciar la aplicación**
+4. **Ejecutar en desarrollo**
 ```bash
-# Opción 1: Iniciar todo junto
-npm run start:all
-
-# Opción 2: Iniciar frontend y backend por separado
+# Ejecutar frontend y backend simultáneamente
 npm run dev
 ```
 
-La aplicación estará disponible en:
-- Frontend: http://localhost:5173
-- Backend: http://localhost:3001
+## 🔧 Variables de Entorno
 
-## 🔧 Endpoints API
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `TRADIER_API_KEY` | Tu API key de Tradier | `UeZpmeGNuZSu78TeCfQkGce9UbTq` |
 
-### Market Data
-- `GET /api/market/quote/:symbol` - Cotización actual
-- `GET /api/market/history/:symbol` - Datos históricos intradía
+## 🚀 Despliegue
 
-### Options Analysis
-- `GET /api/options/chain/:symbol` - Cadena de opciones con GEX
-- `GET /api/analysis/metrics/:symbol` - Métricas calculadas
-- `GET /api/analysis/gex/:symbol` - Análisis GEX detallado
+### Vercel (Recomendado)
 
-## 📊 Cálculos Implementados
+1. **Conectar repositorio**
+   - Ve a [Vercel](https://vercel.com)
+   - Importa tu repositorio de GitHub
+   - Configura las variables de entorno
 
-### GEX (Gamma Exposure)
-```typescript
-gex = gamma * open_interest * contract_size
-```
+2. **Variables de entorno en Vercel**
+   ```
+   TRADIER_API_KEY=tu_api_key_real
+   ```
 
-### Score de Tendencia
-Algoritmo propietario basado en:
-- GEX Score (40%)
-- Price Movement Score (40%)
-- Point of Gravity Score (20%)
+3. **Deploy automático**
+   - Cada push a `main` desencadena un nuevo despliegue
+   - Preview deployments en PRs
 
-### Punto de Gravedad
-Strike con mayor GEX acumulado
+## 📊 Uso
+
+### Dashboard
+- Selecciona el símbolo deseado (SPX, XSP, SPY, QQQ, IWM)
+- Observa métricas de GEX y tendencias en tiempo real
+- Analiza strikes dominantes y volúmenes
+
+### Generador de Ideas
+- Las ideas comienzan a generarse 30 minutos después de la apertura del mercado
+- Las estrategias se adaptan automáticamente a la tendencia detectada
+- Las métricas se actualizan en tiempo real con cada nuevo ciclo
 
 ## 🔒 Seguridad
 
-- API keys almacenadas en variables de entorno
-- CORS configurado para seguridad
-- Rate limiting implementado
-- Validación de datos de entrada
+- La API key se maneja solo del lado del servidor
+- Variables de entorno nunca se exponen al cliente
+- Validación de entrada en todas las rutas
 
-## 🎨 Personalización
+## 📈 Características Técnicas
 
-### Colores
-- Verde: Valores positivos, tendencia alcista
-- Rojo: Valores negativos, tendencia bajista
-- Amarillo: GEX, líneas principales
-- Azul: Precio, delta neutro
+### Backend
+- **TypeScript** para type safety
+- **Express.js** para el servidor
+- **CORS** configurado apropiadamente
+- **Error handling** robusto
+- **Rate limiting** para prevenir abuso
 
-### Temas
-El dashboard utiliza un tema oscuro profesional con Tailwind CSS. Para modificar colores, edita `src/index.css`.
+### Frontend
+- **React 18** con hooks modernos
+- **TypeScript** para desarrollo seguro
+- **Tailwind CSS** para estilos responsive
+- **Zustand** para gestión ligera de estado
+- **Componentes modulares** y reutilizables
 
-## 🚨 Notas Importantes
+## 🤝 Contribuir
 
-- **Sandbox Mode:** La aplicación está configurada para usar la API sandbox de Tradier
-- **Datos Simulados:** Si la API no responde, se utilizan datos simulados para desarrollo
-- **Fines Educativos:** Esta herramienta es para análisis educativo y no constituye asesoramiento financiero
-
-## 📞 Soporte
-
-Para reportar problemas o solicitar características, abre un issue en el repositorio.
+1. Fork el proyecto
+2. Crea tu feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la branch (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo MIT License.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 🙏 Agradecimientos
+
+- [Tradier](https://tradier.com) por proporcionar la API de datos de mercado
+- La comunidad de open source por las herramientas y librerías utilizadas
+
+## 📞 Contacto
+
+Para soporte o preguntas, por favor abre un issue en GitHub.
+
+---
+
+**⚠️ Disclaimer**: Este es un proyecto educacional. No constituye asesoramiento financiero. Siempre realiza tu propia investigación antes de tomar decisiones de inversión.
