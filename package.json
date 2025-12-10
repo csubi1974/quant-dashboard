@@ -7,6 +7,7 @@
     "client:dev": "vite",
     "build": "tsc -b && vite build",
     "build:vercel": "npm run build && cd api && npm install",
+    "vercel-build": "scripts/vercel-build.bat",
     "lint": "eslint .",
     "preview": "vite preview",
     "check": "tsc --noEmit",
